@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/ioctl.h>
@@ -46,13 +47,15 @@ int get_baud_rate(int fd, uint *ispeed, uint *ospeed) {
 }
 
 int main(int argc, char *argv[]) {
-    if (argc != 2 && argc != 3 && argc != 4) {
+    if (!(argc == 2 || argc == 3 || argc == 4) || strcmp("--help", argv[1]) == 0) {
         dprintf(2,
                 "usage (get baud rate): %s device\n"
                 "usage (set baud rate): %s device baudrate\n"
                 "usage (set baud rate i&o): %s device ispeed ospeed\n",
                 argv[0], argv[0], argv[0]);
         return -1;
+    }
+    if (strcmp("--help", argv[1]) == 0) {
     }
 
     int fd;
