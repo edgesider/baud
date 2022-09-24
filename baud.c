@@ -8,7 +8,7 @@
 typedef unsigned int uint;
 
 uint parse_uint(char *str) {
-    uint speed = atoi(str);
+    long speed = atol(str);
     if (speed <= 0) {
         dprintf(2, "invalid baud rate: %s\n", str);
         return 0;
@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
                 argv[0], argv[0], argv[0]);
         return -1;
     }
-    
+
     int fd;
     if ((fd = open(argv[1], O_RDWR)) == -1) {
         perror("open");
@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
         if (get_baud_rate(fd, &ispeed, &ospeed) == -1) {
             return -1;
         }
-        printf("device=%s, ispeed=%d, ospeed=%d\n", argv[1], ispeed, ospeed);
+        printf("device=%s, ispeed=%u, ospeed=%u\n", argv[1], ispeed, ospeed);
         return 0;
     } else if (argc == 3) {
         // set
@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
     } else if (argc == 4) {
         // set i&o
         uint ispeed, ospeed;
-        if ((ispeed = parse_uint(argv[2])) == 0 
+        if ((ispeed = parse_uint(argv[2])) == 0
                 || (ospeed = parse_uint(argv[3])) == 0) {
             return -1;
         }
