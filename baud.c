@@ -7,7 +7,7 @@
 
 typedef unsigned int uint;
 
-uint parse_speed(char *str) {
+uint parse_uint(char *str) {
     uint speed = atoi(str);
     if (speed <= 0) {
         dprintf(2, "invalid baud rate: %s\n", str);
@@ -72,15 +72,15 @@ int main(int argc, char *argv[]) {
     } else if (argc == 3) {
         // set
         uint speed;
-        if ((speed = parse_speed(argv[2])) == 0) {
+        if ((speed = parse_uint(argv[2])) == 0) {
             return -1;
         }
         return set_baud_rate(fd, speed, speed);
     } else if (argc == 4) {
         // set i&o
         uint ispeed, ospeed;
-        if ((ispeed = parse_speed(argv[2])) == 0 
-                || (ospeed = parse_speed(argv[3])) == 0) {
+        if ((ispeed = parse_uint(argv[2])) == 0 
+                || (ospeed = parse_uint(argv[3])) == 0) {
             return -1;
         }
         return set_baud_rate(fd, ispeed, ospeed);
