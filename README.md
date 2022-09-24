@@ -1,6 +1,10 @@
 # baud
 Set non-standard baud rate for tty on linux.
 
+## Build
+
+Just `make` and then you get `./baud`.
+
 ## Usage
 
 ```bash
